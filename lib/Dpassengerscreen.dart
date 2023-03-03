@@ -7,9 +7,6 @@ import 'constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:sapucar/model/passenger.dart';
-import 'model/passenger.dart';
-
 class DPassengerBookingScreen extends StatefulWidget {
   final Driver driver;
   const DPassengerBookingScreen({Key? key, required this.driver})

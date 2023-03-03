@@ -4,7 +4,6 @@ import 'package:sapucar/Dloginscreen.dart';
 import 'package:sapucar/Aloginscreen.dart';
 
 
-
 class SCCharScreen extends StatefulWidget {
   const SCCharScreen({Key? key}) : super(key: key);
 

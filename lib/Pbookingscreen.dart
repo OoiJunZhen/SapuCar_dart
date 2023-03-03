@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:sapucar/model/passenger.dart';
-import 'model/passenger.dart';
 
 class PBookingScreen extends StatefulWidget {
   final Passenger passenger;

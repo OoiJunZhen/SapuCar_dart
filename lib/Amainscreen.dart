@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:sapucar/Adriverappscreen.dart';
 import 'package:sapucar/Aloginscreen.dart';
 import 'package:sapucar/model/admin.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AMainScreen extends StatefulWidget {
   final Admin admin;
