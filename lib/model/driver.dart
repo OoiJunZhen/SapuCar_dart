@@ -10,8 +10,9 @@ class Driver {
   String? licenseNo;
   String? stickerNo;
   String? gender;
+  String? status;
 
-  Driver({this.id, this.name, this.ICno, this.email, this.phone, this.matricStaffNo, this.carModel, this.carPlateNo, this.licenseNo, this.stickerNo, this.gender});
+  Driver({this.id, this.name, this.ICno, this.email, this.phone, this.matricStaffNo, this.carModel, this.carPlateNo, this.licenseNo, this.stickerNo, this.gender, this.status});
 
   Driver.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -25,6 +26,7 @@ class Driver {
     licenseNo = json['licenseNo'];
     stickerNo = json['stickerNo'];
     gender = json['gender'];
+    status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +42,7 @@ class Driver {
     data['licenseNo'] = licenseNo;
     data['stickerNo'] = stickerNo;
     data['gender'] = gender;
+    data['status'] = status;
     return data;
   }
 }

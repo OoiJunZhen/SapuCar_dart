@@ -237,6 +237,10 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
                   Text("UUM Car Sticker No: " +
                       driverAppList[index].stickerNo.toString()),
                   const SizedBox(
+                    height: 7,
+                  ),
+                  Text("Status: " + driverAppList[index].status.toString()),
+                  const SizedBox(
                     height: 15,
                   ),
                   // style: const TextStyle(fontWeight: FontWeight.bold)
@@ -307,7 +311,7 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
         });
   }
 
-    _rejectDriverDialog(int index) {
+  _rejectDriverDialog(int index) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -340,7 +344,7 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
 
   void _approveDriver(int index) {
     String driverAppID = driverAppList[index].id.toString();
-    String statusApproved = "approved";
+    String statusApproved = "Approved";
     http.post(
         Uri.parse(CONSTANTS.server + "/SapuCar/mobile/php/approve_driver.php"),
         body: {
@@ -362,12 +366,12 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
 
   void _rejectDriver(int index) {
     String driverAppID = driverAppList[index].id.toString();
-    String statusApproved = "rejected";
+    String statusRejected = "Rejected";
     http.post(
         Uri.parse(CONSTANTS.server + "/SapuCar/mobile/php/reject_driver.php"),
         body: {
           "driverAppID": driverAppID,
-          "statusApproved": statusApproved,
+          "statusRejected": statusRejected,
         }).then((response) {
       var data = jsonDecode(response.body);
       print(data);
@@ -381,6 +385,4 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
       }
     });
   }
-
-
 }

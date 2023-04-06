@@ -465,6 +465,7 @@ class _DRegisterScreenState extends State<DRegisterScreen> {
     String _carPlateNo = _carPlateNoController.text;
     String _licenseNo = _licenseNoController.text;
     String _stickerNo = _stickerNoController.text;
+    String driverStatus = "In Progress...";
     String base64Image = base64Encode(_image!.readAsBytesSync());
     http.post(
         Uri.parse(CONSTANTS.server + "/SapuCar/mobile/php/register_driver.php"),
@@ -480,6 +481,7 @@ class _DRegisterScreenState extends State<DRegisterScreen> {
           "licenseNo": _licenseNo,
           "stickerNo": _stickerNo,
           "gender": gender,
+          "status": driverStatus,
           "image": base64Image,
         }).then((response) {
       var data = jsonDecode(response.body);
