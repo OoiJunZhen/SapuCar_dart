@@ -25,6 +25,7 @@ class _PDriverScreenState extends State<PDriverScreen> {
   TextEditingController searchCtrl = TextEditingController();
   TextEditingController dateCtrl = TextEditingController();
   TextEditingController timeCtrl = TextEditingController();
+  TextEditingController noPassCtrl = TextEditingController();
   TextEditingController pickUpCtrl = TextEditingController();
   TextEditingController dropOffCtrl = TextEditingController();
   var color;
@@ -106,7 +107,7 @@ class _PDriverScreenState extends State<PDriverScreen> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                Text("PhoneNo: " +
+                                Text("Phone No: " +
                                     driverList[index].phone.toString()),
                               ],
                             ))
@@ -265,6 +266,16 @@ class _PDriverScreenState extends State<PDriverScreen> {
                     height: 10,
                   ),
                   TextField(
+                    controller: noPassCtrl,
+                    decoration: InputDecoration(
+                        labelText: 'No. Of Passengers',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0))),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  TextField(
                     controller: pickUpCtrl,
                     decoration: InputDecoration(
                         labelText: 'Pick Up Destination',
@@ -340,6 +351,7 @@ class _PDriverScreenState extends State<PDriverScreen> {
     String passengerEmail = widget.passenger.email.toString();
     String date = dateCtrl.text;
     String time = timeCtrl.text;
+    String noPass = noPassCtrl.text;
     String pickUp = pickUpCtrl.text;
     String dropOff = dropOffCtrl.text;
     String bookingStatus = "PENDING";
@@ -350,6 +362,7 @@ class _PDriverScreenState extends State<PDriverScreen> {
           "passengerEmail": passengerEmail,
           "date": date,
           "time": time,
+          "noPass": noPass,
           "pickUp": pickUp,
           "dropOff": dropOff,
           "bookingStatus": bookingStatus,

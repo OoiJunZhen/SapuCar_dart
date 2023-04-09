@@ -72,6 +72,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                               child: InkWell(
                                 onTap: () {
                                   _loadPBookingDetailsDialog(index);
+                                  _loadPBookings();
                                 },
                                 child: Padding(
                                   padding:
@@ -336,6 +337,11 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                   const SizedBox(
                     height: 5,
                   ),
+                  Text("No. Of Passenger: " +
+                      pbookingList[index].noPass.toString()),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Text("Pick Up Destination: " +
                       pbookingList[index].pickUp.toString()),
                   const SizedBox(
@@ -387,7 +393,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
             )),
           );
         });
-        setState(() {});
+    setState(() {});
   }
 
   _receiveBookingDialog(int index) {
@@ -406,6 +412,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                       _receiveBooking(index);
+                      _loadPBookings();
                     },
                   ),
                   TextButton(
@@ -437,6 +444,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                       _rejectBooking(index);
+                      _loadPBookings();
                     },
                   ),
                   TextButton(

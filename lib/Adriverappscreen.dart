@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
+import 'package:sapucar/Amainscreen.dart';
 import 'package:sapucar/model/driver.dart';
 import 'constants.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,10 @@ class ADriverAppScreen extends StatefulWidget {
   @override
   State<ADriverAppScreen> createState() => _ADriverAppScreenState();
 }
+
+// Future<void> _refresh() async {
+//   await Future.delayed(Duration(seconds: 1));
+// }
 
 class _ADriverAppScreenState extends State<ADriverAppScreen> {
   late double screenHeight, screenWidth, resWidth;
@@ -41,6 +46,8 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
       appBar: AppBar(
         title: const Text('Driver Application'),
       ),
+      // body: RefreshIndicator(
+      //   onRefresh: _refresh,
       body: Column(children: [
         Expanded(
             child: GridView.count(
@@ -49,7 +56,10 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
                 children: List.generate(driverAppList.length, (index) {
                   return InkWell(
                     splashColor: Colors.green,
-                    onTap: () => {_loadDriverAppDetailsDialog(index)},
+                    onTap: () => {
+                      _loadDriverAppDetailsDialog(index),
+                      _loadDriverApp(curpage)
+                    },
                     child: Card(
                         child: Column(
                       children: [
@@ -91,7 +101,7 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
                                 const SizedBox(
                                   height: 5,
                                 ),
-                                Text("PhoneNo: " +
+                                Text("Phone No: " +
                                     driverAppList[index].phone.toString()),
                               ],
                             ))
@@ -294,8 +304,10 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
                   TextButton(
                     child: const Text("Yes"),
                     onPressed: () {
+                      // Navigator.push(context, MaterialPageRoute(builder: (content) => AMainScreen(admin: widget.admin)));
                       Navigator.of(context).pop();
                       _approveDriver(index);
+                      _loadDriverApp(curpage);
                     },
                   ),
                   TextButton(
@@ -327,6 +339,7 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
                     onPressed: () {
                       Navigator.of(context).pop();
                       _rejectDriver(index);
+                      _loadDriverApp(curpage);
                     },
                   ),
                   TextButton(
@@ -351,9 +364,13 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
           "driverAppID": driverAppID,
           "statusApproved": statusApproved,
         }).then((response) {
-      var data = jsonDecode(response.body);
-      print(data);
-      if (response.statusCode == 200 && data['status'] == 'success') {
+      var jsondata = jsonDecode(response.body);
+      print(jsondata);
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        // print(jsondata['data']['status'].toString());
+        // setState(() {
+        //   driverAppList[index].status = jsondata['data']['status'].toString();
+        // });
         Fluttertoast.showToast(
             msg: "Driver Has Been Approved",
             toastLength: Toast.LENGTH_SHORT,

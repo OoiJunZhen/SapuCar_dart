@@ -6,6 +6,7 @@ class PBooking {
   String? passengerGender;
   String? bookingDate;
   String? bookingTime;
+  String? noPass;
   String? pickUp;
   String? dropOff;
   String? status;
@@ -18,6 +19,7 @@ class PBooking {
       this.passengerGender,
       this.bookingDate,
       this.bookingTime,
+      this.noPass,
       this.pickUp,
       this.dropOff,
       this.status,});
@@ -30,6 +32,7 @@ class PBooking {
     passengerGender = json['passengerGender'];
     bookingDate = json['bookingDate'];
     bookingTime = json['bookingTime'];
+    noPass = json['noPass'];
     pickUp = json['pickUp'];
     dropOff = json['dropOff'];
     status = json['status'];
@@ -44,6 +47,7 @@ class PBooking {
     data['passengerGender'] = passengerGender;
     data['bookingDate'] = bookingDate;
     data['bookingTime'] = bookingTime;
+    data['noPass'] = noPass;
     data['pickUp'] = pickUp;
     data['dropOff'] = dropOff;
     data['status'] = status;

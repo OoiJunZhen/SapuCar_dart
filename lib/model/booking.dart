@@ -9,6 +9,7 @@ class Booking {
   String? carPlateNo;
   String? bookingDate;
   String? bookingTime;
+  String? noPass;
   String? pickUp;
   String? dropOff;
   String? status;
@@ -24,6 +25,7 @@ class Booking {
       this.carPlateNo,
       this.bookingDate,
       this.bookingTime,
+      this.noPass,
       this.pickUp,
       this.dropOff,
       this.status,});
@@ -39,6 +41,7 @@ class Booking {
     carPlateNo = json['carPlateNo'];
     bookingDate = json['bookingDate'];
     bookingTime = json['bookingTime'];
+    noPass = json['noPass'];
     pickUp = json['pickUp'];
     dropOff = json['dropOff'];
     status = json['status'];
@@ -56,6 +59,7 @@ class Booking {
     data['carPlateNo'] = carPlateNo;
     data['bookingDate'] = bookingDate;
     data['bookingTime'] = bookingTime;
+    data['noPass'] = noPass;
     data['pickUp'] = pickUp;
     data['dropOff'] = dropOff;
     data['status'] = status;

@@ -429,6 +429,10 @@ class _PBookingScreenState extends State<PBookingScreen> {
                   const SizedBox(
                     height: 5,
                   ),
+                  Text("No Of Passenger: " + bookingList[index].noPass.toString()),
+                  const SizedBox(
+                    height: 5,
+                  ),
                   Text("Pick Up Destination: " + bookingList[index].pickUp.toString()),
                   const SizedBox(
                     height: 5,
