@@ -192,7 +192,7 @@ class _DLoginScreenState extends State<DLoginScreen> {
             msg: "Preference Stored",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+            timeInSecForIosWeb: 2,
             fontSize: 14.0);
       } else {
         await prefs.setString('email', '');
@@ -204,7 +204,7 @@ class _DLoginScreenState extends State<DLoginScreen> {
             msg: "Preference Removed",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+            timeInSecForIosWeb: 2,
             fontSize: 14.0);
       }
     } else {
@@ -212,7 +212,7 @@ class _DLoginScreenState extends State<DLoginScreen> {
           msg: "Preference Failed",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 1,
+          timeInSecForIosWeb: 2,
           fontSize: 14.0);
       remember = false;
     }
@@ -279,7 +279,7 @@ class _DLoginScreenState extends State<DLoginScreen> {
               msg: "Login Failed, email or password are incorrect",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
+              timeInSecForIosWeb: 2,
               fontSize: 16.0);
         }
       });

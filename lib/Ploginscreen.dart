@@ -204,7 +204,7 @@ class _PLoginScreenState extends State<PLoginScreen> {
             msg: "Preference Removed",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+            timeInSecForIosWeb: 2,
             fontSize: 14.0);
       }
     } else {
@@ -279,7 +279,7 @@ class _PLoginScreenState extends State<PLoginScreen> {
               msg: "Login Failed, email or password are incorrect",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
+              timeInSecForIosWeb: 2,
               fontSize: 16.0);
         }
       });

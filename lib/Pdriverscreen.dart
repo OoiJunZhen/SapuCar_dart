@@ -373,7 +373,7 @@ class _PDriverScreenState extends State<PDriverScreen> {
             msg: "Booking Has Been Created",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+            timeInSecForIosWeb: 2,
             fontSize: 16.0);
       }
     });

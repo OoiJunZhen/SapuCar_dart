@@ -277,7 +277,7 @@ class _ALoginScreenState extends State<ALoginScreen> {
               msg: "Login Failed, email or password are incorrect",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
+              timeInSecForIosWeb: 2,
               fontSize: 16.0);
         }
       });

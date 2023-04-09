@@ -16,10 +16,6 @@ class ADriverAppScreen extends StatefulWidget {
   State<ADriverAppScreen> createState() => _ADriverAppScreenState();
 }
 
-// Future<void> _refresh() async {
-//   await Future.delayed(Duration(seconds: 1));
-// }
-
 class _ADriverAppScreenState extends State<ADriverAppScreen> {
   late double screenHeight, screenWidth, resWidth;
   var numofpage, curpage = 1;
@@ -33,6 +29,38 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
     _loadDriverApp(1);
   }
 
+  Future<void> _pullRefresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    int pageno = curpage;
+    curpage = pageno;
+    numofpage ?? 1;
+    http.post(
+        Uri.parse(CONSTANTS.server + "/SapuCar/mobile/php/load_driverApp.php"),
+        body: {
+          'pageno': pageno.toString(),
+        }).timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {
+        return http.Response('Error', 408);
+      },
+    ).then((response) {
+      var jsondata = json.decode(response.body);
+      print(jsondata);
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        var extractdata = jsondata['data'];
+        numofpage = int.parse(jsondata['numofpage']);
+
+        if (extractdata['driverApp'] != null) {
+          driverAppList = <Driver>[];
+          extractdata['driverApp'].forEach((v) {
+            driverAppList.add(Driver.fromJson(v));
+          });
+        }
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -43,98 +71,102 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
       resWidth = screenWidth * 0.75;
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Driver Application'),
-      ),
-      // body: RefreshIndicator(
-      //   onRefresh: _refresh,
-      body: Column(children: [
-        Expanded(
-            child: GridView.count(
-                crossAxisCount: 2,
-                childAspectRatio: (1 / 1),
-                children: List.generate(driverAppList.length, (index) {
-                  return InkWell(
-                    splashColor: Colors.green,
-                    onTap: () => {
-                      _loadDriverAppDetailsDialog(index),
-                      _loadDriverApp(curpage)
-                    },
-                    child: Card(
-                        child: Column(
-                      children: [
-                        Flexible(
-                          flex: 8,
-                          child: CachedNetworkImage(
-                            imageUrl: CONSTANTS.server +
-                                "/SapuCar/mobile/assets/Dimages/" +
-                                driverAppList[index].id.toString() +
-                                '.jpg',
-                            fit: BoxFit.cover,
-                            width: resWidth,
-                            placeholder: (context, url) =>
-                                const LinearProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
-                        ),
-                        Flexible(
-                            flex: 8,
-                            child: Column(
-                              children: [
-                                Text(
-                                  driverAppList[index].name.toString(),
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Car Model: " +
-                                    driverAppList[index].carModel.toString()),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Car Plate No: " +
-                                    driverAppList[index].carPlateNo.toString()),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Phone No: " +
-                                    driverAppList[index].phone.toString()),
-                              ],
-                            ))
-                      ],
-                    )),
-                  );
-                }))),
-        SizedBox(
-          height: 30,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: numofpage,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              if ((curpage - 1) == index) {
-                color = Colors.red;
-              } else {
-                color = Colors.black;
-              }
-              return SizedBox(
-                width: 40,
-                child: TextButton(
-                    onPressed: () => {_loadDriverApp(index + 1)},
-                    child: Text(
-                      (index + 1).toString(),
-                      style: TextStyle(color: color),
-                    )),
-              );
-            },
-          ),
+        appBar: AppBar(
+          title: const Text('Driver Application'),
         ),
-      ]),
-    );
+        body: RefreshIndicator(
+          onRefresh: _pullRefresh,
+          child: Column(children: [
+            Expanded(
+                child: GridView.count(
+                    crossAxisCount: 2,
+                    childAspectRatio: (1 / 1),
+                    children: List.generate(driverAppList.length, (index) {
+                      return InkWell(
+                        splashColor: Colors.green,
+                        onTap: () => {
+                          _loadDriverAppDetailsDialog(index),
+                          _loadDriverApp(curpage)
+                        },
+                        child: Card(
+                            child: Column(
+                          children: [
+                            Flexible(
+                              flex: 8,
+                              child: CachedNetworkImage(
+                                imageUrl: CONSTANTS.server +
+                                    "/SapuCar/mobile/assets/Dimages/" +
+                                    driverAppList[index].id.toString() +
+                                    '.jpg',
+                                fit: BoxFit.cover,
+                                width: resWidth,
+                                placeholder: (context, url) =>
+                                    const LinearProgressIndicator(),
+                                errorWidget: (context, url, error) =>
+                                    const Icon(Icons.error),
+                              ),
+                            ),
+                            Flexible(
+                                flex: 8,
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      driverAppList[index].name.toString(),
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text("Car Model: " +
+                                        driverAppList[index]
+                                            .carModel
+                                            .toString()),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text("Car Plate No: " +
+                                        driverAppList[index]
+                                            .carPlateNo
+                                            .toString()),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text("Phone No: " +
+                                        driverAppList[index].phone.toString()),
+                                  ],
+                                ))
+                          ],
+                        )),
+                      );
+                    }))),
+            SizedBox(
+              height: 30,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: numofpage,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  if ((curpage - 1) == index) {
+                    color = Colors.red;
+                  } else {
+                    color = Colors.black;
+                  }
+                  return SizedBox(
+                    width: 40,
+                    child: TextButton(
+                        onPressed: () => {_loadDriverApp(index + 1)},
+                        child: Text(
+                          (index + 1).toString(),
+                          style: TextStyle(color: color),
+                        )),
+                  );
+                },
+              ),
+            ),
+          ]),
+        ));
   }
 
   _loadDriverApp(int pageno) {
@@ -367,10 +399,15 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
       var jsondata = jsonDecode(response.body);
       print(jsondata);
       if (response.statusCode == 200 && jsondata['status'] == 'success') {
-        // print(jsondata['data']['status'].toString());
-        // setState(() {
-        //   driverAppList[index].status = jsondata['data']['status'].toString();
-        // });
+        // var extractdata = jsondata['data'];
+
+        // if (extractdata['driverApp'] != null) {
+        //   driverAppList = <Driver>[];
+        //   extractdata['driverApp'].forEach((v) {
+        //     driverAppList.add(Driver.fromJson(v));
+        //   });
+        // }
+        // setState(() {});
         Fluttertoast.showToast(
             msg: "Driver Has Been Approved",
             toastLength: Toast.LENGTH_SHORT,

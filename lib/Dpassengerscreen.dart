@@ -30,6 +30,33 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
     _loadPBookings();
   }
 
+  Future<void> _pullRefresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    http.post(
+        Uri.parse(CONSTANTS.server + "/SapuCar/mobile/php/load_pbooking.php"),
+        body: {
+          'driver_id': widget.driver.id,
+        }).timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {
+        return http.Response('Error', 408);
+      },
+    ).then((response) {
+      var jsondata = json.decode(response.body);
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        var extractdata = jsondata['data'];
+
+        if (extractdata['bookings'] != null) {
+          pbookingList = <PBooking>[];
+          extractdata['bookings'].forEach((v) {
+            pbookingList.add(PBooking.fromJson(v));
+          });
+        }
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -40,213 +67,216 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
       resWidth = screenWidth * 0.75;
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Passenger Bookings'),
-      ),
-      body: pbookingList.isEmpty
-          ? Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(titlecenter,
-                    style: const TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
-              ),
-            )
-          : Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Column(children: [
-                  const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text("Passenger Bookings",
-                        style: TextStyle(
+        appBar: AppBar(
+          title: const Text('Passenger Bookings'),
+        ),
+        body: RefreshIndicator(
+          onRefresh: _pullRefresh,
+          child: pbookingList.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(titlecenter,
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
-                  const Divider(color: Colors.grey),
-                  Expanded(
-                      child: GridView.count(
-                          crossAxisCount: 2,
-                          childAspectRatio: (1 / 0.9),
-                          children: List.generate(pbookingList.length, (index) {
-                            return Card(
-                              child: InkWell(
-                                onTap: () {
-                                  _loadPBookingDetailsDialog(index);
-                                  _loadPBookings();
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(8, 4, 8, 4),
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Table(
-                                          columnWidths: const {
-                                            0: FlexColumnWidth(4),
-                                            1: FlexColumnWidth(6),
-                                          },
-                                          // border: const TableBorder(
-                                          //     verticalInside: BorderSide(
-                                          //         width: 1,
-                                          //         color: Colors.blue,
-                                          //         style: BorderStyle.solid)),
+                )
+              : Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Column(children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text("Passenger Bookings",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
+                      ),
+                      const Divider(color: Colors.grey),
+                      Expanded(
+                          child: GridView.count(
+                              crossAxisCount: 2,
+                              childAspectRatio: (1 / 0.9),
+                              children:
+                                  List.generate(pbookingList.length, (index) {
+                                return Card(
+                                  child: InkWell(
+                                    onTap: () {
+                                      _loadPBookingDetailsDialog(index);
+                                      _loadPBookings();
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          const EdgeInsets.fromLTRB(8, 4, 8, 4),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            TableRow(children: [
-                                              const TableCell(
-                                                child: Text(
-                                                  "Booking ID ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TableCell(
-                                                child: Text(
-                                                  " : " +
-                                                      pbookingList[index]
-                                                          .bookingID
-                                                          .toString(),
-                                                ),
-                                              )
-                                            ]),
-                                            TableRow(children: [
-                                              const TableCell(
-                                                child: Text(
-                                                  "Name ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TableCell(
-                                                child: Text(
-                                                  " : " +
-                                                      pbookingList[index]
-                                                          .passengerName
-                                                          .toString(),
-                                                ),
-                                              )
-                                            ]),
-                                            TableRow(children: [
-                                              const TableCell(
-                                                child: Text(
-                                                  "Phone No. ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TableCell(
-                                                child: Text(
-                                                  " : " +
-                                                      pbookingList[index]
-                                                          .passengerPhone
-                                                          .toString(),
-                                                ),
-                                              )
-                                            ]),
-                                            TableRow(children: [
-                                              const TableCell(
-                                                child: Text(
-                                                  "Date ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TableCell(
-                                                child: Text(
-                                                  " : " +
-                                                      pbookingList[index]
-                                                          .bookingDate
-                                                          .toString(),
-                                                ),
-                                              )
-                                            ]),
-                                            TableRow(children: [
-                                              const TableCell(
-                                                child: Text(
-                                                  "Time ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TableCell(
-                                                child: Text(
-                                                  " : " +
-                                                      pbookingList[index]
-                                                          .bookingTime
-                                                          .toString(),
-                                                ),
-                                              )
-                                            ]),
-                                            TableRow(children: [
-                                              const TableCell(
-                                                child: Text(
-                                                  "Pick Up ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TableCell(
-                                                child: Text(
-                                                  " : " +
-                                                      pbookingList[index]
-                                                          .pickUp
-                                                          .toString(),
-                                                ),
-                                              )
-                                            ]),
-                                            TableRow(children: [
-                                              const TableCell(
-                                                child: Text(
-                                                  "Drop Off ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TableCell(
-                                                child: Text(
-                                                  " : " +
-                                                      pbookingList[index]
-                                                          .dropOff
-                                                          .toString(),
-                                                ),
-                                              )
-                                            ]),
-                                            TableRow(children: [
-                                              const TableCell(
-                                                child: Text(
-                                                  "Status ",
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                              ),
-                                              TableCell(
-                                                child: Text(
-                                                  " : " +
-                                                      pbookingList[index]
-                                                          .status
-                                                          .toString(),
-                                                ),
-                                              )
-                                            ]),
-                                          ],
-                                        ),
-                                      ]),
-                                ),
-                              ),
-                            );
-                          }))),
-                ]),
-              ),
-            ),
-    );
+                                            Table(
+                                              columnWidths: const {
+                                                0: FlexColumnWidth(4),
+                                                1: FlexColumnWidth(6),
+                                              },
+                                              // border: const TableBorder(
+                                              //     verticalInside: BorderSide(
+                                              //         width: 1,
+                                              //         color: Colors.blue,
+                                              //         style: BorderStyle.solid)),
+                                              children: [
+                                                TableRow(children: [
+                                                  const TableCell(
+                                                    child: Text(
+                                                      "Booking ID ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  TableCell(
+                                                    child: Text(
+                                                      " : " +
+                                                          pbookingList[index]
+                                                              .bookingID
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                ]),
+                                                TableRow(children: [
+                                                  const TableCell(
+                                                    child: Text(
+                                                      "Name ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  TableCell(
+                                                    child: Text(
+                                                      " : " +
+                                                          pbookingList[index]
+                                                              .passengerName
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                ]),
+                                                TableRow(children: [
+                                                  const TableCell(
+                                                    child: Text(
+                                                      "Phone No. ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  TableCell(
+                                                    child: Text(
+                                                      " : " +
+                                                          pbookingList[index]
+                                                              .passengerPhone
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                ]),
+                                                TableRow(children: [
+                                                  const TableCell(
+                                                    child: Text(
+                                                      "Date ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  TableCell(
+                                                    child: Text(
+                                                      " : " +
+                                                          pbookingList[index]
+                                                              .bookingDate
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                ]),
+                                                TableRow(children: [
+                                                  const TableCell(
+                                                    child: Text(
+                                                      "Time ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  TableCell(
+                                                    child: Text(
+                                                      " : " +
+                                                          pbookingList[index]
+                                                              .bookingTime
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                ]),
+                                                TableRow(children: [
+                                                  const TableCell(
+                                                    child: Text(
+                                                      "Pick Up ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  TableCell(
+                                                    child: Text(
+                                                      " : " +
+                                                          pbookingList[index]
+                                                              .pickUp
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                ]),
+                                                TableRow(children: [
+                                                  const TableCell(
+                                                    child: Text(
+                                                      "Drop Off ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  TableCell(
+                                                    child: Text(
+                                                      " : " +
+                                                          pbookingList[index]
+                                                              .dropOff
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                ]),
+                                                TableRow(children: [
+                                                  const TableCell(
+                                                    child: Text(
+                                                      "Status ",
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  ),
+                                                  TableCell(
+                                                    child: Text(
+                                                      " : " +
+                                                          pbookingList[index]
+                                                              .status
+                                                              .toString(),
+                                                    ),
+                                                  )
+                                                ]),
+                                              ],
+                                            ),
+                                          ]),
+                                    ),
+                                  ),
+                                );
+                              }))),
+                    ]),
+                  ),
+                ),
+        ));
   }
 
   _loadPBookings() {
@@ -475,7 +505,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
             msg: "Booking Has Been Received",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+            timeInSecForIosWeb: 2,
             fontSize: 16.0);
       }
     });
@@ -496,7 +526,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
             msg: "Booking Has Been Rejected",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 1,
+            timeInSecForIosWeb: 2,
             fontSize: 16.0);
       }
     });
