@@ -22,6 +22,7 @@ class _PDriverScreenState extends State<PDriverScreen> {
   int currentIndex = 0;
   List<Driver> driverList = <Driver>[];
   String search = "";
+  String titlecenter = "Loading...";
   TextEditingController searchCtrl = TextEditingController();
   TextEditingController dateCtrl = TextEditingController();
   TextEditingController timeCtrl = TextEditingController();
@@ -36,6 +37,40 @@ class _PDriverScreenState extends State<PDriverScreen> {
     _loadDriver(1, search);
   }
 
+  Future<void> _pullRefresh() async {
+    await Future.delayed(const Duration(milliseconds: 500));
+    int pageno = curpage;
+    var search = "";
+    curpage = pageno;
+    numofpage ?? 1;
+    http.post(
+        Uri.parse(CONSTANTS.server + "/SapuCar/mobile/php/load_driver.php"),
+        body: {
+          'pageno': pageno.toString(),
+          'search': search,
+        }).timeout(
+      const Duration(seconds: 5),
+      onTimeout: () {
+        return http.Response('Error', 408);
+      },
+    ).then((response) {
+      var jsondata = json.decode(response.body);
+      print(jsondata);
+      if (response.statusCode == 200 && jsondata['status'] == 'success') {
+        var extractdata = jsondata['data'];
+        numofpage = int.parse(jsondata['numofpage']);
+
+        if (extractdata['driverApp'] != null) {
+          driverList = <Driver>[];
+          extractdata['driverApp'].forEach((v) {
+            driverList.add(Driver.fromJson(v));
+          });
+        }
+        setState(() {});
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
@@ -46,101 +81,118 @@ class _PDriverScreenState extends State<PDriverScreen> {
       resWidth = screenWidth * 0.75;
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Drivers'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              _loadSearchDialog();
-            },
-          ),
-        ],
-      ),
-      body: Column(children: [
-        Expanded(
-            child: GridView.count(
-                crossAxisCount: 2,
-                childAspectRatio: (1 / 1),
-                children: List.generate(driverList.length, (index) {
-                  return InkWell(
-                    splashColor: Colors.green,
-                    onTap: () => {_loadDriverDetailsDialog(index)},
-                    child: Card(
-                        child: Column(
-                      children: [
-                        Flexible(
-                          flex: 8,
-                          child: CachedNetworkImage(
-                            imageUrl: CONSTANTS.server +
-                                "/SapuCar/mobile/assets/Dimages/" +
-                                driverList[index].id.toString() +
-                                '.jpg',
-                            fit: BoxFit.cover,
-                            width: resWidth,
-                            placeholder: (context, url) =>
-                                const LinearProgressIndicator(),
-                            errorWidget: (context, url, error) =>
-                                const Icon(Icons.error),
-                          ),
-                        ),
-                        Flexible(
-                            flex: 8,
-                            child: Column(
-                              children: [
-                                Text(
-                                  driverList[index].name.toString(),
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Car Model: " +
-                                    driverList[index].carModel.toString()),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Car Plate No: " +
-                                    driverList[index].carPlateNo.toString()),
-                                const SizedBox(
-                                  height: 5,
-                                ),
-                                Text("Phone No: " +
-                                    driverList[index].phone.toString()),
-                              ],
-                            ))
-                      ],
-                    )),
-                  );
-                }))),
-        SizedBox(
-          height: 30,
-          child: ListView.builder(
-            shrinkWrap: true,
-            itemCount: numofpage,
-            scrollDirection: Axis.horizontal,
-            itemBuilder: (context, index) {
-              if ((curpage - 1) == index) {
-                color = Colors.red;
-              } else {
-                color = Colors.black;
-              }
-              return SizedBox(
-                width: 40,
-                child: TextButton(
-                    onPressed: () => {_loadDriver(index + 1, "")},
-                    child: Text(
-                      (index + 1).toString(),
-                      style: TextStyle(color: color),
-                    )),
-              );
-            },
-          ),
+        appBar: AppBar(
+          title: const Text('Drivers'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                _loadSearchDialog();
+              },
+            ),
+          ],
         ),
-      ]),
-    );
+        body: RefreshIndicator(
+          onRefresh: _pullRefresh,
+          child: driverList.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(titlecenter,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
+                )
+              : Column(children: [
+                  Expanded(
+                      child: GridView.count(
+                          crossAxisCount: 2,
+                          childAspectRatio: (0.8 / 1),
+                          children: List.generate(driverList.length, (index) {
+                            return InkWell(
+                              splashColor: Colors.green,
+                              onTap: () => {_loadDriverDetailsDialog(index)},
+                              child: Card(
+                                  child: Column(
+                                children: [
+                                  Flexible(
+                                    flex: 15,
+                                    child: CachedNetworkImage(
+                                      imageUrl: CONSTANTS.server +
+                                          "/SapuCar/mobile/assets/Dimages/" +
+                                          driverList[index].id.toString() +
+                                          '.jpg',
+                                      fit: BoxFit.cover,
+                                      width: resWidth,
+                                      placeholder: (context, url) =>
+                                          const LinearProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                    ),
+                                  ),
+                                  Flexible(
+                                      flex: 7,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            driverList[index].name.toString(),
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text("Car Model: " +
+                                              driverList[index]
+                                                  .carModel
+                                                  .toString()),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text("Car Plate No: " +
+                                              driverList[index]
+                                                  .carPlateNo
+                                                  .toString()),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text("Phone No: " +
+                                              driverList[index]
+                                                  .phone
+                                                  .toString()),
+                                        ],
+                                      ))
+                                ],
+                              )),
+                            );
+                          }))),
+                  SizedBox(
+                    height: 30,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: numofpage,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        if ((curpage - 1) == index) {
+                          color = Colors.red;
+                        } else {
+                          color = Colors.black;
+                        }
+                        return SizedBox(
+                          width: 40,
+                          child: TextButton(
+                              onPressed: () => {_loadDriver(index + 1, "")},
+                              child: Text(
+                                (index + 1).toString(),
+                                style: TextStyle(color: color),
+                              )),
+                        );
+                      },
+                    ),
+                  ),
+                ]),
+        ));
   }
 
   _loadDriver(int pageno, String search) {
@@ -169,8 +221,10 @@ class _PDriverScreenState extends State<PDriverScreen> {
             driverList.add(Driver.fromJson(v));
           });
         }
-        setState(() {});
+      } else {
+        titlecenter = "No Drivers Yet";
       }
+      setState(() {});
     });
   }
 

@@ -20,6 +20,7 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
   late double screenHeight, screenWidth, resWidth;
   var numofpage, curpage = 1;
   int currentIndex = 0;
+  String titlecenter = "Loading...";
   List<Driver> driverAppList = <Driver>[];
   var color;
 
@@ -30,7 +31,7 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
   }
 
   Future<void> _pullRefresh() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     int pageno = curpage;
     curpage = pageno;
     numofpage ?? 1;
@@ -76,96 +77,110 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
         ),
         body: RefreshIndicator(
           onRefresh: _pullRefresh,
-          child: Column(children: [
-            Expanded(
-                child: GridView.count(
-                    crossAxisCount: 2,
-                    childAspectRatio: (1 / 1),
-                    children: List.generate(driverAppList.length, (index) {
-                      return InkWell(
-                        splashColor: Colors.green,
-                        onTap: () => {
-                          _loadDriverAppDetailsDialog(index),
-                          _loadDriverApp(curpage)
-                        },
-                        child: Card(
-                            child: Column(
-                          children: [
-                            Flexible(
-                              flex: 8,
-                              child: CachedNetworkImage(
-                                imageUrl: CONSTANTS.server +
-                                    "/SapuCar/mobile/assets/Dimages/" +
-                                    driverAppList[index].id.toString() +
-                                    '.jpg',
-                                fit: BoxFit.cover,
-                                width: resWidth,
-                                placeholder: (context, url) =>
-                                    const LinearProgressIndicator(),
-                                errorWidget: (context, url, error) =>
-                                    const Icon(Icons.error),
-                              ),
-                            ),
-                            Flexible(
-                                flex: 8,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      driverAppList[index].name.toString(),
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
+          child: driverAppList.isEmpty
+              ? Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: Text(titlecenter,
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold)),
+                  ),
+                )
+              : Column(children: [
+                  Expanded(
+                      child: GridView.count(
+                          crossAxisCount: 2,
+                          childAspectRatio: (0.8 / 1),
+                          children:
+                              List.generate(driverAppList.length, (index) {
+                            return InkWell(
+                              splashColor: Colors.green,
+                              onTap: () => {
+                                _loadDriverAppDetailsDialog(index),
+                                _loadDriverApp(curpage)
+                              },
+                              child: Card(
+                                  child: Column(
+                                children: [
+                                  Flexible(
+                                    flex: 15,
+                                    child: CachedNetworkImage(
+                                      imageUrl: CONSTANTS.server +
+                                          "/SapuCar/mobile/assets/Dimages/" +
+                                          driverAppList[index].id.toString() +
+                                          '.jpg',
+                                      fit: BoxFit.cover,
+                                      width: resWidth,
+                                      placeholder: (context, url) =>
+                                          const LinearProgressIndicator(),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text("Car Model: " +
-                                        driverAppList[index]
-                                            .carModel
-                                            .toString()),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text("Car Plate No: " +
-                                        driverAppList[index]
-                                            .carPlateNo
-                                            .toString()),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text("Phone No: " +
-                                        driverAppList[index].phone.toString()),
-                                  ],
-                                ))
-                          ],
-                        )),
-                      );
-                    }))),
-            SizedBox(
-              height: 30,
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: numofpage,
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index) {
-                  if ((curpage - 1) == index) {
-                    color = Colors.red;
-                  } else {
-                    color = Colors.black;
-                  }
-                  return SizedBox(
-                    width: 40,
-                    child: TextButton(
-                        onPressed: () => {_loadDriverApp(index + 1)},
-                        child: Text(
-                          (index + 1).toString(),
-                          style: TextStyle(color: color),
-                        )),
-                  );
-                },
-              ),
-            ),
-          ]),
+                                  ),
+                                  Flexible(
+                                      flex: 7,
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            driverAppList[index]
+                                                .name
+                                                .toString(),
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text("Car Model: " +
+                                              driverAppList[index]
+                                                  .carModel
+                                                  .toString()),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text("Car Plate No: " +
+                                              driverAppList[index]
+                                                  .carPlateNo
+                                                  .toString()),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text("Phone No: " +
+                                              driverAppList[index]
+                                                  .phone
+                                                  .toString()),
+                                        ],
+                                      ))
+                                ],
+                              )),
+                            );
+                          }))),
+                  SizedBox(
+                    height: 30,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: numofpage,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        if ((curpage - 1) == index) {
+                          color = Colors.red;
+                        } else {
+                          color = Colors.black;
+                        }
+                        return SizedBox(
+                          width: 40,
+                          child: TextButton(
+                              onPressed: () => {_loadDriverApp(index + 1)},
+                              child: Text(
+                                (index + 1).toString(),
+                                style: TextStyle(color: color),
+                              )),
+                        );
+                      },
+                    ),
+                  ),
+                ]),
         ));
   }
 
@@ -194,8 +209,10 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
             driverAppList.add(Driver.fromJson(v));
           });
         }
-        setState(() {});
+      } else {
+        titlecenter = "No Driver Applications Yet";
       }
+        setState(() {});
     });
   }
 
@@ -336,7 +353,7 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
                   TextButton(
                     child: const Text("Yes"),
                     onPressed: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (content) => AMainScreen(admin: widget.admin)));
+                      // Navigator.push(context, MaterialPageRoute(builder: (context) => AMainScreen(admin: widget.admin)));
                       Navigator.of(context).pop();
                       _approveDriver(index);
                       _loadDriverApp(curpage);

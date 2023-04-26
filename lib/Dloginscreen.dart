@@ -122,7 +122,7 @@ class _DLoginScreenState extends State<DLoginScreen> {
                           Row(
                             children: [
                               SizedBox(
-                                width: 150,
+                                width: 130,
                                 height: 50,
                                 child: ElevatedButton(
                                   child: const Text("Login"),
@@ -130,10 +130,10 @@ class _DLoginScreenState extends State<DLoginScreen> {
                                 ),
                               ),
                               const SizedBox(
-                                width: 45,
+                                width: 60,
                               ),
                               SizedBox(
-                                width: 150,
+                                width: 130,
                                 height: 50,
                                 child: ElevatedButton(
                                   child: const Text("Register Driver"),

@@ -21,7 +21,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
   late double screenHeight, screenWidth, resWidth;
   int currentIndex = 0;
   List<PBooking> pbookingList = <PBooking>[];
-  String titlecenter = "Passenger Bookings is empty.";
+  String titlecenter = "Loading...";
   var color;
 
   @override
@@ -31,7 +31,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
   }
 
   Future<void> _pullRefresh() async {
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     http.post(
         Uri.parse(CONSTANTS.server + "/SapuCar/mobile/php/load_pbooking.php"),
         body: {
@@ -95,7 +95,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                       Expanded(
                           child: GridView.count(
                               crossAxisCount: 2,
-                              childAspectRatio: (1 / 0.9),
+                              childAspectRatio: (1.05 / 1),
                               children:
                                   List.generate(pbookingList.length, (index) {
                                 return Card(
@@ -116,11 +116,11 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                 0: FlexColumnWidth(4),
                                                 1: FlexColumnWidth(6),
                                               },
-                                              // border: const TableBorder(
-                                              //     verticalInside: BorderSide(
-                                              //         width: 1,
-                                              //         color: Colors.blue,
-                                              //         style: BorderStyle.solid)),
+                                              border: const TableBorder(
+                                                  verticalInside: BorderSide(
+                                                      width: 1,
+                                                      color: Colors.green,
+                                                      style: BorderStyle.solid)),
                                               children: [
                                                 TableRow(children: [
                                                   const TableCell(
@@ -128,7 +128,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       "Booking ID ",
                                                       style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -137,6 +138,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                           pbookingList[index]
                                                               .bookingID
                                                               .toString(),
+                                                              style: const TextStyle(
+                                                          fontSize: 15),
                                                     ),
                                                   )
                                                 ]),
@@ -146,7 +149,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       "Name ",
                                                       style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -155,6 +159,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                           pbookingList[index]
                                                               .passengerName
                                                               .toString(),
+                                                              style: const TextStyle(
+                                                          fontSize: 15),
                                                     ),
                                                   )
                                                 ]),
@@ -164,7 +170,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       "Phone No. ",
                                                       style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -173,6 +180,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                           pbookingList[index]
                                                               .passengerPhone
                                                               .toString(),
+                                                              style: const TextStyle(
+                                                          fontSize: 15),
                                                     ),
                                                   )
                                                 ]),
@@ -182,7 +191,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       "Date ",
                                                       style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -191,6 +201,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                           pbookingList[index]
                                                               .bookingDate
                                                               .toString(),
+                                                              style: const TextStyle(
+                                                          fontSize: 15),
                                                     ),
                                                   )
                                                 ]),
@@ -200,7 +212,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       "Time ",
                                                       style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -209,6 +222,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                           pbookingList[index]
                                                               .bookingTime
                                                               .toString(),
+                                                              style: const TextStyle(
+                                                          fontSize: 15),
                                                     ),
                                                   )
                                                 ]),
@@ -218,7 +233,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       "Pick Up ",
                                                       style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -227,6 +243,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                           pbookingList[index]
                                                               .pickUp
                                                               .toString(),
+                                                              style: const TextStyle(
+                                                          fontSize: 15),
                                                     ),
                                                   )
                                                 ]),
@@ -236,7 +254,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       "Drop Off ",
                                                       style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -245,6 +264,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                           pbookingList[index]
                                                               .dropOff
                                                               .toString(),
+                                                              style: const TextStyle(
+                                                          fontSize: 15),
                                                     ),
                                                   )
                                                 ]),
@@ -254,7 +275,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       "Status ",
                                                       style: TextStyle(
                                                           fontWeight:
-                                                              FontWeight.bold),
+                                                              FontWeight.bold,
+                                                          fontSize: 15),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -263,6 +285,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                           pbookingList[index]
                                                               .status
                                                               .toString(),
+                                                              style: const TextStyle(
+                                                          fontSize: 15),
                                                     ),
                                                   )
                                                 ]),
@@ -300,8 +324,10 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
             pbookingList.add(PBooking.fromJson(v));
           });
         }
-        setState(() {});
+      } else {
+        titlecenter = "No Passenger Bookings Yet";
       }
+        setState(() {});
     });
   }
 

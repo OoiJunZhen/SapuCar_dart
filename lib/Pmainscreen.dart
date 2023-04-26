@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sapucar/Pbookingscreen.dart';
 import 'package:sapucar/Pdriverscreen.dart';
-import 'package:sapucar/Ploginscreen.dart';
+import 'package:sapucar/Pprofilescreen.dart';
 import 'package:sapucar/model/passenger.dart';
 
 class PMainScreen extends StatefulWidget {
@@ -26,10 +26,12 @@ class _PMainScreenState extends State<PMainScreen> {
         passenger: widget.passenger,
       ),
       PBookingScreen(passenger: widget.passenger),
-      PDriverScreen(passenger: widget.passenger),
+      // PDriverScreen(passenger: widget.passenger),
+      PProfileScreen(passenger: widget.passenger),
     ];
   }
 
+  @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
@@ -52,21 +54,21 @@ class _PMainScreenState extends State<PMainScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
+              Icons.local_taxi,
             ),
             label: "Driver",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.menu_book,
+              Icons.calendar_month,
             ),
             label: "Booking",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.logout_rounded,
+              Icons.person,
             ),
-            label: "Logout",
+            label: "Profile",
           ),
         ],
       ),
@@ -83,52 +85,9 @@ class _PMainScreenState extends State<PMainScreen> {
         maintitle = "Booking";
       }
       if (currentIndex == 2) {
-        _logout(context);
+        maintitle = "Profile";
       }
     });
-  }
-
-  void _logout(BuildContext context) {
-    
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: const Text(
-            "Log Out ",
-          ),
-          content: const Text(
-            "Are you sure?",
-            style: TextStyle(),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text(
-                "Yes",
-                style: TextStyle(),
-              ),
-              onPressed: () {
-                Navigator.canPop(context) ? Navigator.pop(context) : null;
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => const PLoginScreen()));
-                //Navigator.of(context).pop();
-                // _logout();
-              },
-            ),
-            TextButton(
-              child: const Text(
-                "No",
-                style: TextStyle(),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 
 }

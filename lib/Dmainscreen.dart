@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sapucar/Dloginscreen.dart';
+import 'package:sapucar/Dprofilescreen.dart';
 import 'package:sapucar/Dpassengerscreen.dart';
 import 'package:sapucar/model/driver.dart';
 
@@ -24,7 +24,7 @@ class _DMainScreenState extends State<DMainScreen> {
       DPassengerBookingScreen(
         driver: widget.driver,
       ),
-      DPassengerBookingScreen(driver: widget.driver),
+     DProfileScreen(driver: widget.driver),
     ];
   }
 
@@ -51,15 +51,15 @@ class _DMainScreenState extends State<DMainScreen> {
         items: const [
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.person,
+              Icons.calendar_month,
             ),
             label: "Passenger Bookings",
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.logout_rounded,
+              Icons.person,
             ),
-            label: "Logout",
+            label: "Profile",
           ),
         ],
       ),
@@ -73,52 +73,52 @@ class _DMainScreenState extends State<DMainScreen> {
         maintitle = "Passenger Bookings";
       }
       if (currentIndex == 1) {
-        _logout(context);
+        maintitle = "Profile";
       }
     });
   }
 
-  void _logout(BuildContext context) {
+  // void _logout(BuildContext context) {
     
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-        return AlertDialog(
-          title: const Text(
-            "Log Out ",
-          ),
-          content: const Text(
-            "Are you sure?",
-            style: TextStyle(),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text(
-                "Yes",
-                style: TextStyle(),
-              ),
-              onPressed: () {
-                Navigator.canPop(context) ? Navigator.pop(context) : null;
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => const DLoginScreen()));
-                //Navigator.of(context).pop();
-                // _logout();
-              },
-            ),
-            TextButton(
-              child: const Text(
-                "No",
-                style: TextStyle(),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       // return object of type Dialog
+  //       return AlertDialog(
+  //         title: const Text(
+  //           "Log Out ",
+  //         ),
+  //         content: const Text(
+  //           "Are you sure?",
+  //           style: TextStyle(),
+  //         ),
+  //         actions: <Widget>[
+  //           TextButton(
+  //             child: const Text(
+  //               "Yes",
+  //               style: TextStyle(),
+  //             ),
+  //             onPressed: () {
+  //               Navigator.canPop(context) ? Navigator.pop(context) : null;
+  //               Navigator.pushReplacement(context,
+  //                   MaterialPageRoute(builder: (_) => const DLoginScreen()));
+  //               //Navigator.of(context).pop();
+  //               // _logout();
+  //             },
+  //           ),
+  //           TextButton(
+  //             child: const Text(
+  //               "No",
+  //               style: TextStyle(),
+  //             ),
+  //             onPressed: () {
+  //               Navigator.of(context).pop();
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
 }

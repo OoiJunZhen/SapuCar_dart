@@ -443,7 +443,7 @@ class _DRegisterScreenState extends State<DRegisterScreen> {
             toolbarTitle: 'Cropper',
             toolbarColor: Colors.green,
             toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
+            initAspectRatio: CropAspectRatioPreset.square,
             lockAspectRatio: false),
         iosUiSettings: const IOSUiSettings(
           minimumAspectRatio: 1.0,

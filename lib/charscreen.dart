@@ -68,7 +68,7 @@ class _SCCharScreenState extends State<SCCharScreen> {
                                 ),
                               ),
                               const SizedBox(
-                                width: 80,
+                                width: 60,
                               ),
                               SizedBox(
                                 width: 130,
@@ -86,7 +86,7 @@ class _SCCharScreenState extends State<SCCharScreen> {
                           Row(
                             children: [
                               const SizedBox(
-                                    width: 100,
+                                    width: 90,
                                   ),
                                   SizedBox(
                             width: 130,

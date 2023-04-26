@@ -122,7 +122,7 @@ class _ALoginScreenState extends State<ALoginScreen> {
                           Row(
                             children: [
                               SizedBox(
-                                width: 150,
+                                width: 130,
                                 height: 50,
                                 child: ElevatedButton(
                                   child: const Text("Login"),
