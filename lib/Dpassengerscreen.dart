@@ -339,7 +339,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20.0))),
             title: const Text(
-              "Booking Details",
+              "Passenger Booking Details",
               style: TextStyle(),
             ),
             content: SingleChildScrollView(
