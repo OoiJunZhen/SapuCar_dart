@@ -48,7 +48,8 @@ class _DProfileScreenState extends State<DProfileScreen> {
                     widget.driver.id.toString() +
                     '.jpg',
                 fit: BoxFit.cover,
-                width: 175,
+                // width: 175,
+                width: 160,
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               const SizedBox(height: 16),
@@ -74,14 +75,17 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                 "                  " +
                                     "                  " +
                                     "Name ",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                // style: TextStyle(
+                                //     fontWeight: FontWeight.bold, fontSize: 17),
+                                    style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.name.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                // style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -92,13 +96,13 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                     "                  " +
                                     "Email ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.email.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -109,13 +113,13 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                     "                  " +
                                     "Phone No. ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.phone.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -126,13 +130,13 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                     "                  " +
                                     "Matric/Staff No. ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.matricStaffNo.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -143,13 +147,13 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                     "                  " +
                                     "Gender ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.gender.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -160,13 +164,13 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                     "                  " +
                                     "Car Model ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.carModel.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -177,13 +181,13 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                     "                  " +
                                     "Car Plate No. ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.carPlateNo.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -194,13 +198,13 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                     "                  " +
                                     "License No. ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.licenseNo.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -211,13 +215,13 @@ class _DProfileScreenState extends State<DProfileScreen> {
                                     "                  " +
                                     "Sticker No. ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.driver.stickerNo.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -236,7 +240,8 @@ class _DProfileScreenState extends State<DProfileScreen> {
                       },
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red))),
-              const SizedBox(height: 200),
+              // const SizedBox(height: 200),
+              const SizedBox(height: 50),
             ],
           ),
         )));

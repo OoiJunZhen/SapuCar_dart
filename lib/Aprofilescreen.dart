@@ -65,13 +65,13 @@ class _AProfileScreenState extends State<AProfileScreen> {
                                     "                  " +
                                     "Email ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14.5),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.admin.email.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14.5),
                               ),
                             )
                           ]),
@@ -90,7 +90,7 @@ class _AProfileScreenState extends State<AProfileScreen> {
                               },
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red))),
-              const SizedBox(height: 230),
+              const SizedBox(height: 190),
             ],
           ),
         )));

@@ -107,7 +107,8 @@ class _PDriverScreenState extends State<PDriverScreen> {
                   Expanded(
                       child: GridView.count(
                           crossAxisCount: 2,
-                          childAspectRatio: (0.8 / 1),
+                          // childAspectRatio: (0.8 / 1),
+                          childAspectRatio: (0.7 / 1),
                           children: List.generate(driverList.length, (index) {
                             return InkWell(
                               splashColor: Colors.green,
@@ -116,7 +117,8 @@ class _PDriverScreenState extends State<PDriverScreen> {
                                   child: Column(
                                 children: [
                                   Flexible(
-                                    flex: 15,
+                                    // flex: 15,
+                                    flex: 13,
                                     child: CachedNetworkImage(
                                       imageUrl: CONSTANTS.server +
                                           "/SapuCar/mobile/assets/Dimages/" +

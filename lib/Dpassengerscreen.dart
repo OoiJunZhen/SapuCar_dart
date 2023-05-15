@@ -95,7 +95,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                       Expanded(
                           child: GridView.count(
                               crossAxisCount: 2,
-                              childAspectRatio: (1.05 / 1),
+                              // childAspectRatio: (1.05 / 1),
+                              childAspectRatio: (1.1 / 1),
                               children:
                                   List.generate(pbookingList.length, (index) {
                                 return Card(
@@ -129,7 +130,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -139,7 +141,8 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                               .bookingID
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -150,7 +153,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -160,7 +163,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                               .passengerName
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -171,7 +174,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -181,7 +184,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                               .passengerPhone
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -192,7 +195,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -202,7 +205,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                               .bookingDate
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -213,7 +216,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -223,7 +226,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                               .bookingTime
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -234,7 +237,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -244,7 +247,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                               .pickUp
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -255,7 +258,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -265,7 +268,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                               .dropOff
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -276,7 +279,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -286,7 +289,7 @@ class _DPassengerBookingScreenState extends State<DPassengerBookingScreen> {
                                                               .status
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),

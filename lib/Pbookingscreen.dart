@@ -93,7 +93,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                       Expanded(
                           child: GridView.count(
                               crossAxisCount: 2,
-                              childAspectRatio: (1.05 / 1),
+                              // childAspectRatio: (1.05 / 1),
+                              childAspectRatio: (1.1 / 1),
                               children:
                                   List.generate(bookingList.length, (index) {
                                 return Card(
@@ -127,7 +128,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -137,7 +139,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                               .bookingID
                                                               .toString(),
                                                       style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -148,7 +151,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -158,7 +162,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                               .bookingDate
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -169,7 +174,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -179,7 +185,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                               .bookingTime
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -190,7 +197,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -200,7 +208,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                               .pickUp
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -211,7 +220,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -221,7 +231,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                               .dropOff
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -232,7 +243,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -242,7 +254,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                               .carModel
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -253,7 +266,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -263,7 +277,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                               .carPlateNo
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),
@@ -274,7 +289,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                       style: TextStyle(
                                                           fontWeight:
                                                               FontWeight.bold,
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   ),
                                                   TableCell(
@@ -284,7 +300,8 @@ class _PBookingScreenState extends State<PBookingScreen> {
                                                               .status
                                                               .toString(),
                                                               style: const TextStyle(
-                                                          fontSize: 15),
+                                                          // fontSize: 15),
+                                                          fontSize: 13.5),
                                                     ),
                                                   )
                                                 ]),

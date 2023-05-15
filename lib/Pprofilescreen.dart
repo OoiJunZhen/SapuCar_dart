@@ -48,7 +48,8 @@ class _PProfileScreenState extends State<PProfileScreen> {
                     widget.passenger.id.toString() +
                     '.jpg',
                 fit: BoxFit.cover,
-                width: 175,
+                // width: 175,
+                width: 160,
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               const SizedBox(height: 15),
@@ -74,14 +75,17 @@ class _PProfileScreenState extends State<PProfileScreen> {
                                 "                  " +
                                     "                  " +
                                     "Name ",
+                                // style: TextStyle(
+                                //     fontWeight: FontWeight.bold, fontSize: 17),
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.passenger.name.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                // style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -92,13 +96,14 @@ class _PProfileScreenState extends State<PProfileScreen> {
                                     "                  " +
                                     "Email ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.passenger.email.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                // style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -109,13 +114,13 @@ class _PProfileScreenState extends State<PProfileScreen> {
                                     "                  " +
                                     "Phone No. ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.passenger.phone.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -126,14 +131,14 @@ class _PProfileScreenState extends State<PProfileScreen> {
                                     "                  " +
                                     "Matric/Staff No. ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " +
                                     widget.passenger.matricStaffNo.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -144,13 +149,13 @@ class _PProfileScreenState extends State<PProfileScreen> {
                                     "                  " +
                                     "Gender ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 17),
+                                    fontWeight: FontWeight.bold, fontSize: 14),
                               ),
                             ),
                             TableCell(
                               child: Text(
                                 " : " + widget.passenger.gender.toString(),
-                                style: const TextStyle(fontSize: 17),
+                                style: const TextStyle(fontSize: 14),
                               ),
                             )
                           ]),
@@ -159,23 +164,24 @@ class _PProfileScreenState extends State<PProfileScreen> {
                     ]),
               ),
               const SizedBox(height: 30),
-                  SizedBox(
-                          width: 100,
-                          height: 50,
-                          child: ElevatedButton(
-                              child: const Text("Logout"),
-                              onPressed: () {
-                                _logout(context);
-                              },
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.red))),
-              const SizedBox(height: 250),
+              SizedBox(
+                  width: 100,
+                  height: 50,
+                  child: ElevatedButton(
+                      child: const Text("Logout"),
+                      onPressed: () {
+                        _logout(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red))),
+              // const SizedBox(height: 250),
+              const SizedBox(height: 90),
             ],
           ),
         )));
   }
 
-    void _logout(BuildContext context) {
+  void _logout(BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -214,5 +220,4 @@ class _PProfileScreenState extends State<PProfileScreen> {
       },
     );
   }
-
 }

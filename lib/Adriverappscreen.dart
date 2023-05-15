@@ -90,7 +90,7 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
                   Expanded(
                       child: GridView.count(
                           crossAxisCount: 2,
-                          childAspectRatio: (0.8 / 1),
+                          childAspectRatio: (0.70 / 1),
                           children:
                               List.generate(driverAppList.length, (index) {
                             return InkWell(
@@ -103,7 +103,8 @@ class _ADriverAppScreenState extends State<ADriverAppScreen> {
                                   child: Column(
                                 children: [
                                   Flexible(
-                                    flex: 15,
+                                    // flex: 15,
+                                    flex: 13,
                                     child: CachedNetworkImage(
                                       imageUrl: CONSTANTS.server +
                                           "/SapuCar/mobile/assets/Dimages/" +
