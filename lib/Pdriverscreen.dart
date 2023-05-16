@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:sapucar/model/driver.dart';
 import 'constants.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'package:sapucar/model/passenger.dart';
 
 class PDriverScreen extends StatefulWidget {
@@ -17,6 +18,13 @@ class PDriverScreen extends StatefulWidget {
 }
 
 class _PDriverScreenState extends State<PDriverScreen> {
+  // var noPass = "1";
+  // List<String> passengerList = [
+  //   "1",
+  //   "2",
+  //   "3",
+  //   "4",
+  // ];
   late double screenHeight, screenWidth, resWidth;
   var numofpage, curpage = 1;
   int currentIndex = 0;
@@ -304,9 +312,24 @@ class _PDriverScreenState extends State<PDriverScreen> {
                   TextField(
                     controller: dateCtrl,
                     decoration: InputDecoration(
-                        labelText: 'Date (31/12/2023)',
+                        // icon: const Icon(Icons.calendar_today_rounded),
+                        labelText: 'Select Date',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0))),
+                    onTap: () async {
+                      DateTime? pickeddate = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2010),
+                          lastDate: DateTime(2040));
+
+                      if (pickeddate != null) {
+                        setState(() {
+                          dateCtrl.text =
+                              DateFormat('dd/MM/yyyy').format(pickeddate);
+                        });
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 10,
@@ -314,9 +337,23 @@ class _PDriverScreenState extends State<PDriverScreen> {
                   TextField(
                     controller: timeCtrl,
                     decoration: InputDecoration(
-                        labelText: 'Time (12:00PM)',
+                        labelText: 'Select Time',
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5.0))),
+                    onTap: () async {
+                      TimeOfDay? pickedtime = await showTimePicker(
+                          context: context, initialTime: TimeOfDay.now());
+
+                      if (pickedtime != null) {
+                        DateTime parsedTime = DateFormat.jm()
+                            .parse(pickedtime.format(context).toString());
+                        String formattedTime =
+                            DateFormat.jm().format(parsedTime);
+                        setState(() {
+                          timeCtrl.text = formattedTime;
+                        });
+                      }
+                    },
                   ),
                   const SizedBox(
                     height: 10,
@@ -351,6 +388,40 @@ class _PDriverScreenState extends State<PDriverScreen> {
                   const SizedBox(
                     height: 12,
                   ),
+                  // Row(
+                  //   children: [
+                  //     const SizedBox(
+                  //       width: 7,
+                  //     ),
+                  //     const Text(
+                  //       "No Of Passenger:  ",
+                  //       style: TextStyle(fontSize: 18),
+                  //     ),
+                  //     const SizedBox(
+                  //       width: 7,
+                  //     ),
+                  //     DropdownButton(
+                  //       itemHeight: 60,
+                  //       value: noPass,
+                  //       onChanged: (newValue) {
+                  //         setState(() {
+                  //           noPass = newValue.toString();
+                  //         });
+                  //       },
+                  //       items: passengerList.map((noPass) {
+                  //         return DropdownMenuItem(
+                  //           child: Text(
+                  //             noPass,
+                  //           ),
+                  //           value: noPass,
+                  //         );
+                  //       }).toList(),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(
+                  //   height: 12,
+                  // ),
                   Row(children: [
                     Expanded(
                       flex: 1,
